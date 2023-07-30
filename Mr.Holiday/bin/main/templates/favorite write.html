@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/style.css}" rel="styleSheet">
+<meta charset="UTF-8">
+<style type="text/css">
+	body{font-family:monospace;}
+	textarea{vertical-align:midlle;}
+	span.err{color:red;}
+</style>
+<title th:text="${title}"></title>
+</head>
+<body>
+<h2 class="favoritewritetitle" th:text="${title}"></h2>
+<table class="table_3" >
+<form th:action="@{/favorite insert}" th:object="${form}" method="post">
+	<tr><th>ジャンル</th><td><select  th:field="*{genre}" >
+	<option value=""> </option>
+	<option value="音楽">音楽 </option>
+	<option value="鑑賞">鑑賞 </option>
+	<option value="美容・健康">美容・健康 </option>
+	<option value="旅行・お出かけ"> 旅行・お出かけ</option>
+	<option value="スポーツ"> スポーツ</option>
+	<option value="自然・アウトドア">自然・アウトドア </option>
+	<option value="ゲーム・読書">ゲーム・読書 </option>
+	<option value="スキル・芸術">スキル・芸術 </option>
+	<option value="乗り物">乗り物 </option>
+	<option value="その他">その他 </option></select>
+	<span th:if="${#fields.hasErrors('genre')}"
+				th:errors="*{genre}" class="err"></span></td>			
+	<tr><th>屋内 or 屋外</th><td><select th:field="*{mood}" >
+	<option value=""> </option>
+	<option value="屋内">屋内</option>
+	<option value="屋外">屋外</option></select>
+	</td>
+	<tr><th>場所</th><td><input type="text" th:field="*{place}" >
+	<span th:if="${#fields.hasErrors('place')}"
+				th:errors="*{place}" class="err"></span>
+	</td>
+	<tr><th>内容</th><td><input type="text" th:field="*{content}" />
+	<span th:if="${#fields.hasErrors('content')}"
+				th:errors="*{content}" class="err"></span>
+	</td>
+	<tr><th>日時</th><td><input type="date"  value="2022-01-01" 
+									  th:field="*{time}" /></td>
+	<tr><th>メモ</th><td><textarea th:field="*{memo}" cols="50" rows="10"></textarea>
+	<span th:if="${#fields.hasErrors('memo')}"
+				th:errors="*{memo}" class="err"></span>
+	<input th:if="${title}=='更新'" type="hidden"
+										th:field="*{id}"/></td>
+	</table>
+	<div class="favoritepostbutton"><input type="submit" value="送信" /></div>
+	</form>
+	<p><a th:href="@{/favorite}">お気に入り一覧へ戻る</a>
+</body>
+</html>

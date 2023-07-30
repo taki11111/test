@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/style.css}" rel="styleSheet">
+<meta charset="UTF-8">
+</head>
+<body>
+<h2 th:text="${title}"></h2>
+	<div th:object="${form}">
+		<p th:if="${title=='削除確認'}">
+				次のデータを削除してよろしいですか？</p>
+		<table class="table_5" >
+		<tr><th>ジャンル<td th:text="*{genre}"></td></tr>
+		<tr><th>屋内or屋外<td th:text="*{mood}"></td></tr>
+		<tr><th>場所<td th:text="*{place}"></td></tr>
+		<tr><th>内容<td th:text="*{content}"></td></tr>
+		<tr><th>お気に入り<td th:text="*{favorite}"></td></tr>
+		</table>
+		<form th:if="${title=='削除確認'}"
+							th:action="@{/delete}">
+		<input type="hidden" th:field="*{id}" />
+		<div class="favoritepostbutton">
+		<input type="submit" value="削除実行" /></div>
+		</form>
+	</div>
+	<p><a th:href="@{/hobit}">趣味・遊び一覧へ戻る</a></p>
+</body>
+</html>

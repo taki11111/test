@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <link th:href="@{/style.css}" rel="styleSheet">
+<meta charset="UTF-8">
+</head>
+<body>
+<div id="hobit" class="big">
+	<h1><span class="ribbon">　趣味・遊び一覧　</span></h1>
+	<form th:action="@{/search}" method="post">
+		<p>趣味・遊び一覧検索:<select name="key" >
+	<option value=""> </option>
+	<option value="屋内">屋内 </option>
+	<option value="屋外">屋外 </option>
+	<option value="音楽">音楽 </option>
+	<option value="鑑賞">鑑賞 </option>
+	<option value="美容・健康">美容・健康 </option>
+	<option value="旅行・お出かけ"> 旅行・お出かけ</option>
+	<option value="スポーツ"> スポーツ</option>
+	<option value="自然・アウトドア">自然・アウトドア </option>
+	<option value="ゲーム・読書">ゲーム・読書 </option>
+	<option value="スキル・芸術">スキル・芸術 </option>
+	<option value="乗り物">乗り物 </option>
+	<option value="その他">その他 </option></select>
+	<input type="submit" value="検索" />
+	</p>
+	</form>
+	<table class="table_1" th:if="${list.size()>0}">
+	<tr><th>ジャンル</th><th>屋内or屋外</th><th>場所</th>
+	<th>内容</th><th>お気に入り</th><th>更新</th><th>削除</th>
+	<tr th:each="e:${list}">
+		<td th:text="${e.genre}"></td>
+		<td th:text="${e.mood}"></td>
+		<td th:text="${e.place}"></td>
+		<td th:text="${e.content}"></td>
+		<td th:text="${e.favorite}"></td>
+		<td><a th:href="@{/update/{x}(x=${e.id})}">更新</a>
+		<td><a th:href="@{/delete/{x}(x=${e.id})}">削除</a>
+	</tr>
+	</table>
+	<a class="link_1" th:href="@{/write}"><button class="hobitbutton4">書き込み</button> </a>
+	<a class="link_2" th:href="@{/}"><button class="hobitbutton5">TOPへ戻る</button></a>
+	<a class="link_3" th:href="@{/favorite}"><button class="hobitbutton6">お気に入り一覧</button></a>
+	<a class="link_4" th:href="@{/book}"><button class="hobitbutton7">趣味・遊びデータ一覧</button></a>
+	</div><!-- /#hobit -->
+</body>
+</html>

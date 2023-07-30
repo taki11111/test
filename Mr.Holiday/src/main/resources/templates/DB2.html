@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>初期画面</title>
+<style>
+h1 {font-size:18pt; font-weight:bold; color:gray;}
+body {font-size:13pt; font-weight:bold; color:gray; margin:5px 25px;}
+tr {margin:5px;}
+th {padding:5px;color:white; background:darkgray;}
+td {padding:5px;color:black; background:#f0f0f0;}
+</style>
+</head>
+<body>
+    <h1 th:text="${msg}"></h1>
+        <p th:text="${msg2}"></p>
+        <!--入力した値をth:object="${formModel}"に詰める  -->
+        <!--th:valueで初期値が入るようにする  -->
+        <form method="post" th:action="@{/book}" th:object="${formModel}">
+            <label>ジャンル:</label>
+            <input type="text" name="genre" th:value="*{genre}"><p>
+            <label>著者　　:</label>
+            <input type="text" name="author" th:value="*{author}"><p>
+            <label>タイトル:</label>
+            <input type="text" name="title" th:value="*{title}"><p>
+            <input type="submit" value="検索">
+        </form>
+        <table>
+            <tr>
+                <th>ISBN</th>
+                <th>タイトル</th>
+                <th>著者名</th>
+                <th>在庫数</th>
+                <th>ジャンル</th>
+            </tr>
+            <tr th:each="obj:${books}" th:object="${obj}">
+                <!--th:hrefでリンク設定  -->
+                <td><a th:href="@{/book/detail/{isbn}(isbn=*{isbn})}" th:text="*{isbn}"></a></td>
+                <td th:text="*{title}"></td>
+                <td th:text="*{author}"></td>
+                <td th:text="*{stock}"></td>
+                <td th:text="*{genre}"></td>
+            </tr>
+        </table>
+</body>
+</html>
